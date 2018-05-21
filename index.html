@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript" src="../web3.min.js"></script>
 
@@ -16,71 +16,24 @@
 </head>
 <body>
 	<div class="container">
-		<h1> Lottery Dapp </h1>
-		<h2>Manager Address <span id="manager">0x0000000</span></h2>
+    <div class="jumbotron">
+		<h1> Lottery Dapp </h1> <span>Date of the Lottery Draw</span>
+        <h2>Manager Address: <span id="manager">0x0000000</span></h2>
+        <h3> Transaction Id:<span id="transaction"></span></h3>
+        <h3>Winner Address:<strong id="won"></strong></h3>
+
+    </div>
 		<img id="loader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif">
 		<label for="ether" class="col-lg-2 control-label">Ether Amount you want to bet(more then 0.01 ether)</label>
-        <input id="ether" type="text">
+        <input id="ether" name="betamount" type="number">
 		<button id="button">Enter in Lottery</button>
-		<h3>No of Players <span id="playersno">10</span></h3>
-		<h3>Total Amount of Ether On Bet <span>10</span></h3>
+        <button id="winner" >Pick Winner</button>
 
+		<h3>Total No of Players:<strong id="playersno"></strong></h3>
+		<h3>Total Amount of Ether On Bet: <strong id="prize"></strong></h3>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-
-    <script src="myjs.js">
-    </script>
-
+<script src="myjs.js"></script>
 </body>
 </html>
