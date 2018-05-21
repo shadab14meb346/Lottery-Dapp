@@ -8,12 +8,17 @@
      web3.eth.defaultAccount = web3.eth.accounts[0];
      var LotteryContract = web3.eth.contract([
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [],
-		"name": "enter",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
+		"name": "manager",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -24,12 +29,6 @@
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	},
 	{
 		"constant": true,
@@ -50,17 +49,12 @@
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [],
-		"name": "manager",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
+		"name": "enter",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -81,15 +75,71 @@
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	}
 ]);
-var Lottery = LotteryContract.at("0x4bea2866a76b614efc1e2dad190a9719a1b4efc8");
+var Lottery = LotteryContract.at("0x1a7700b123d970e0694e4d10b6b0c537fb82eb19");
+
+
+
+
+// $("#button").click(function(){
+// 	x=$("#betamount").val();
+// 	if(err)
+// 			console.log(err);
+// 	else
+// 	// $("#loader").show();
+// 	// Lottery.enter(web3.toWei(x,'ether'),(err,res)=>{
+// 	// 	console.log(res);
+// 	alert("button working");
+// 	});
+Lottery.manager((err,res)=>{
+	if(err)
+		console.log(err);
+	else
+		$("#manager").text(res);
+});
+Lottery.getPlayers((err,res)=>{
+	if(err)
+		console.log(err);
+	else
+		$("#playersno").text(res[0]);
+
+});
+web3.eth.getBalance("0x1a7700b123d970e0694e4d10b6b0c537fb82eb19",(err,res)=>{
+	if(err)
+		console.log(err);
+	else
+		$("#prize").text(res/1000000000000000000);
+
+});
+
 $("#button").click(function(){
-	x=$("#ether").val();
-	$("#loader").show();
-	var x=$("#ether").val()
-	Lottery.enter(x,(err,res)=>{
+	var user_address=web3.eth.defaultAccount;
+	var bet         =$("#ether").val();
+	console.log(bet);
+	Lottery.enter({from:user_address,
+		value:web3.toWei(bet,'ether')},(err,res)=>{
+			if(err)
+				console.log(err);
+			else
+				$("#transaction").text(res);
+		});
+	});
+$("#winner").click(function(){
+	Lottery.pickWinner((err,res)=>{
 		if(err)
-			$("#loader").hide();
+			console.log(err);
+		else
+			console.log(res);
 	});
 });
+
+
+
+ 
